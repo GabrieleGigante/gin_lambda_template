@@ -19,7 +19,7 @@ func Handler(ctx context.Context, request events.APIGatewayV2HTTPRequest) (event
 func main() {
 	var PORT string
 	if PORT = os.Getenv("PORT"); PORT == "" {
-		PORT = ":8080"
+		PORT = ":9999"
 	}
 	if inCloud() {
 		gin.SetMode(gin.ReleaseMode)
