@@ -22,6 +22,7 @@ func main() {
 		PORT = ":8080"
 	}
 	if inCloud() {
+		gin.SetMode(gin.ReleaseMode)
 		ginLambda = ginadapter.NewV2(SetupRuter())
 		lambda.Start(Handler)
 		return
@@ -31,12 +32,4 @@ func main() {
 
 func inCloud() bool {
 	return os.Getenv("LAMBDA_TASK_ROOT") != ""
-}
-
-func SetupRuter() *gin.Engine {
-	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{"hello": "lambda"})
-	})
-	return r
 }
