@@ -17,15 +17,16 @@ func Handler(ctx context.Context, request events.APIGatewayV2HTTPRequest) (event
 }
 
 func main() {
-	var PORT string
-	if PORT = os.Getenv("PORT"); PORT == "" {
-		PORT = ":9999"
-	}
+
 	if inCloud() {
 		gin.SetMode(gin.ReleaseMode)
 		ginLambda = ginadapter.NewV2(SetupRuter())
 		lambda.Start(Handler)
 		return
+	}
+	var PORT string
+	if PORT = os.Getenv("PORT"); PORT == "" {
+		PORT = ":9999"
 	}
 	SetupRuter().Run(PORT)
 }
